@@ -1,0 +1,96 @@
+<html>
+
+<head>
+  <title>
+  </title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+    crossorigin="anonymous"></script>
+  <script src="js/jquery.ajax-cross-origin.min.js"></script>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <script>
+
+   var urlJson = 'https://raw.githubusercontent.com/HiPlatform/prova-frontend/0accb7e876563db074a95b3f75f2af81ec46a259/data.json';
+
+    $(document).ready(function () {
+      $.getJSON(urlJson, function (data) {       
+        fillSelect(data);
+      });
+    });
+
+    function fillSelect(data) {
+      $.each(data, function (i, item) {
+        $('<a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample"><div id="' + item.id + '" class="custom-control custom-checkbox"><input id="' + item.id + '" type="checkbox" class="custom-control-input"><label class="custom-control-label" for="defaultUnchecked">' + item.name + '</label></div></a>').appendTo('#menu');
+        if(item.children != ""){
+            fillChildrens(item.children, item.id);
+        }        
+      });
+    }
+
+
+    function fillChildrens(data, element) {
+      $('<div class="collapse" id="collapseExample"><div class="card card-body">')
+      $.each(data, function (i, item) {
+        $('<div id="' + item.id + '" class="custom-control custom-checkbox"><input id="' + item.id + '" type="checkbox" class="custom-control-input"><label class="custom-control-label" for="defaultUnchecked">' + item.name + '</label></div>').appendTo('#'+element);
+        if(item.children != "") {
+          y++;
+          fillChildrens(item.children, item.id);                     
+        }
+      });
+      $('</div></div>')     
+    }
+
+    /*
+
+    var checkboxes = document.querySelectorAll('input.subOption'),
+      checkall = document.getElementById('option');
+
+    for (var i = 0; i < checkboxes.length; i++) {
+      checkboxes[i].onclick = function () {
+        var checkedCount = document.querySelectorAll('input.subOption:checked').length;
+
+        checkall.checked = checkedCount > 0;
+        checkall.indeterminate = checkedCount > 0 && checkedCount < checkboxes.length;
+      }
+    }
+
+    checkall.onclick = function () {
+      for (var i = 0; i < checkboxes.length; i++) {
+        checkboxes[i].checked = this.checked;
+      }
+    }
+    */
+
+  </script>
+
+  <style>
+
+    div {
+      margin: 10px 0;
+      width: 100%;
+      margin-left: 30px;   
+    }
+
+  </style>
+
+</head>
+
+<body>
+  <div class="container">
+      <div id="accordion">
+          <div class="card">
+        
+   
+
+    </div>
+    </div>
+  </div>
+</body>
+
+</html>
